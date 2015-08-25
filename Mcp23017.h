@@ -31,7 +31,7 @@ private:
         uint8_t _mask;
 
     public:
-        void init(Mcp23017* mcp, uint8_t pin) {
+        McpInputPin(Mcp23017* mcp, uint8_t pin) {
             _mcp = mcp;
             _pin = pin;
             if (pin > 7) { pin -= 8; }
@@ -55,15 +55,13 @@ private:
     uint8_t _bank1;
     uint8_t _bank2;
 
-    Mcp23017::McpInputPin _inputPins[16];
-
 public:
     Mcp23017(uint8_t address, uint8_t pollInterval = 10);
 
     void begin();
 
     InputPin* getPin(uint8_t pin) {
-        return &_inputPins[pin];
+        return new McpInputPin(this, pin);
     }
 };
 

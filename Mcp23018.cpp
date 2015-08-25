@@ -18,39 +18,13 @@
 */
 #include "Mcp23018.h"
 #include <Wire.h>
-
-#define IODIRA    (uint8_t)0x00
-#define IODIRB    (uint8_t)0x01
-#define IPOLA    (uint8_t)0x02
-#define IPOLB    (uint8_t)0x03
-#define GPINTENA    (uint8_t)0x04
-#define GPINTENB    (uint8_t)0x05
-#define DEFVALA    (uint8_t)0x06
-#define DEFVALB   (uint8_t)0x07
-#define INTCONA    (uint8_t)0x08
-#define INTCONB   (uint8_t)0x09
-#define IOCONA      (uint8_t)0x0A
-#define IOCONB      (uint8_t)0x0B
-#define GPPUA      (uint8_t)0x0C
-#define GPPUB      (uint8_t)0x0D
-#define INTFA      (uint8_t)0x0E
-#define INTFB      (uint8_t)0x0F
-#define INTCAPA   (uint8_t)0x10
-#define INTCAPB   (uint8_t)0x11
-#define GPIOA      (uint8_t)0x12
-#define GPIOB      (uint8_t)0x13
-#define OLATA      (uint8_t)0x14
-#define OLATB      (uint8_t)0x15
+#include "Mcp.h"
 
 Mcp23018::Mcp23018(uint8_t address)
 {
     _portAState = 0xFF;
     _portBState = 0xFF;
     _address = address;
-
-    for(int i=0;i<16;i++) {
-        _outputPins[i].init(this, i);
-    }
 }
 
 void Mcp23018::begin() {

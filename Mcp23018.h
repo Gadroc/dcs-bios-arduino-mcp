@@ -31,7 +31,7 @@ private:
         uint8_t _pin;
 
     public:
-        void init(Mcp23018* mcp, uint8_t pin) {
+        McpOutputPin(Mcp23018* mcp, uint8_t pin) {
             _mcp = mcp;
             _pin = pin;
         }
@@ -49,8 +49,6 @@ private:
     uint8_t _portAState;
     uint8_t _portBState;
 
-    Mcp23018::McpOutputPin _outputPins[16];
-
     // Sets the power state for an LED on this bank.
     // led - led to set the power for (0-15)
     // power - state of the power (true = on, false = off)
@@ -64,7 +62,7 @@ public:
     // Initializes the LED bank.  Should be called from setup().
     void begin();
     OutputPin* getPin(uint8_t pin) {
-        return &_outputPins[pin];
+        return new McpOutputPin(this, pin);
     }
 };
 
