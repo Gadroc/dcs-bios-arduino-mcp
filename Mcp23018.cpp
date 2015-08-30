@@ -74,7 +74,7 @@ void Mcp23018::setState(uint8_t pin, bool state)
     }
 }
 
-void Mcp23018::onBufferReady(uint8_t *buffer) {
+void Mcp23018::onDcsBiosFrameSync() {
     Wire.beginTransmission(_address);
     Wire.write(GPIOA);
     Wire.write((uint8_t)_portAState);

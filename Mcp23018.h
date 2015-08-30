@@ -20,10 +20,10 @@
 #define _DCSBIOS_MCP23018_H_
 
 #include <Arduino.h>
-#include "BufferListener.h"
+#include "ExportStreamListener.h"
 #include "OutputPin.h"
 
-class Mcp23018 : BufferListener {
+class Mcp23018 : ExportStreamListener {
 private:
     class McpOutputPin : public OutputPin {
     private:
@@ -54,7 +54,7 @@ private:
     // power - state of the power (true = on, false = off)
     void setState(uint8_t pin, bool state);
 
-    virtual void onBufferReady(uint8_t *buffer);
+    virtual void onDcsBiosFrameSync();
 
 public:
     Mcp23018(uint8_t address);

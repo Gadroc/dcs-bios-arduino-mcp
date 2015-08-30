@@ -22,9 +22,9 @@
 
 Mcp23017::Mcp23017(byte address, uint8_t pollInterval)
 {
-	_nextPoll = millis();
+	_nextPoll = millis()-1;
 	_address = address;
-	_pollInterval = pollInterval;
+	_pollInterval = pollInterval;	
 }
 
 void Mcp23017::begin()
@@ -40,7 +40,7 @@ void Mcp23017::begin()
 	Wire.write((uint8_t)0xFF);
 	Wire.write((uint8_t)0xFF);
 	Wire.endTransmission();
-	
+
 	poll();
 }
 
