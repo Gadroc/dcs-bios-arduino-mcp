@@ -59,8 +59,8 @@ public:
 
     void begin();
 
-    InputPin* getPin(uint8_t pin) {
-        return new McpInputPin(*this, pin);
+    InputPin& getPin(uint8_t pin) {
+        return *(new McpInputPin(*this, pin));
     }
 };
 

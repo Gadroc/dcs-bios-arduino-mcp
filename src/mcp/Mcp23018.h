@@ -60,8 +60,8 @@ public:
 
     // Initializes the LED bank.  Should be called from setup().
     void begin();
-    OutputPin* getPin(uint8_t pin) {
-        return new McpOutputPin(*this, pin);
+    OutputPin& getPin(uint8_t pin) {
+        return *(new McpOutputPin(*this, pin));
     }
 };
 
