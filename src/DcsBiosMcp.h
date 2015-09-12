@@ -19,7 +19,7 @@
 #ifndef _DCSBIOSMCP_H_
 #define _DCSBIOSMCP_H_
 
-#include "Mcp23018.h"
-#include "Mcp23017.h"
+#include "mcp/Mcp23018.h"
+#include "mcp/Mcp23017.h"
 
 #endif

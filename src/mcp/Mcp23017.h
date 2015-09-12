@@ -20,7 +20,7 @@
 #define _DCSBIOS_MCP23017_H_
 
 #include <Arduino.h>
-#include "InputPin.h"
+#include "hal/InputPin.h"
 
 class Mcp23017 {
 private:

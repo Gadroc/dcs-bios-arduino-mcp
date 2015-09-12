@@ -20,8 +20,8 @@
 #define _DCSBIOS_MCP23018_H_
 
 #include <Arduino.h>
-#include "ExportStreamListener.h"
-#include "OutputPin.h"
+#include "dcs/ExportStreamListener.h"
+#include "hal/OutputPin.h"
 
 class Mcp23018 : ExportStreamListener {
 private:
