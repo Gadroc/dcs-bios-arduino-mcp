@@ -26,24 +26,23 @@ class Mcp23017 {
 private:
     class McpInputPin : public InputPin {
     private:
-        Mcp23017* _mcp;
+        Mcp23017& _mcp;
         uint8_t _pin;
         uint8_t _mask;
 
     public:
-        McpInputPin(Mcp23017* mcp, uint8_t pin) {
-            _mcp = mcp;
+        McpInputPin(Mcp23017& mcp, uint8_t pin) : _mcp(mcp) {
             _pin = pin;
             if (pin > 7) { pin -= 8; }
             _mask = 1<<pin;
         }
 
         virtual uint8_t readState() {
-            _mcp->poll();
+            _mcp.poll();
             if (_pin > 7) {
-                return _mcp->_bank2 & _mask ? LOW : HIGH;
+                return _mcp._bank2 & _mask ? LOW : HIGH;
             } else {
-                return _mcp->_bank1 & _mask ? LOW : HIGH;
+                return _mcp._bank1 & _mask ? LOW : HIGH;
             }
         }
     };
@@ -61,7 +60,7 @@ public:
     void begin();
 
     InputPin* getPin(uint8_t pin) {
-        return new McpInputPin(this, pin);
+        return new McpInputPin(*this, pin);
     }
 };
 

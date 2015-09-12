@@ -27,21 +27,20 @@ class Mcp23018 : ExportStreamListener {
 private:
     class McpOutputPin : public OutputPin {
     private:
-        Mcp23018* _mcp;
+        Mcp23018& _mcp;
         uint8_t _pin;
 
     public:
-        McpOutputPin(Mcp23018* mcp, uint8_t pin) {
-            _mcp = mcp;
+        McpOutputPin(Mcp23018& mcp, uint8_t pin) : _mcp(mcp) {
             _pin = pin;
         }
 
         virtual void set() {
-            _mcp->setState(_pin, true);
+            _mcp.setState(_pin, true);
         }
 
         virtual void clear() {
-            _mcp->setState(_pin, false);
+            _mcp.setState(_pin, false);
         }
     };
 
@@ -62,7 +61,7 @@ public:
     // Initializes the LED bank.  Should be called from setup().
     void begin();
     OutputPin* getPin(uint8_t pin) {
-        return new McpOutputPin(this, pin);
+        return new McpOutputPin(*this, pin);
     }
 };
 
