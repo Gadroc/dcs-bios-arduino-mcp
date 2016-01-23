@@ -19,6 +19,9 @@
 #ifndef _DCSBIOS_MCP_H_
 #define _DCSBIOS_MCP_H_
 
+#include <Arduino.h>
+#include "dcs/ExportStreamListener.h"
+
 #define IODIRA    (byte)0x00
 #define IODIRB    (byte)0x01
 #define IPOLA    (byte)0x02
@@ -41,5 +44,30 @@
 #define GPIOB      (byte)0x13
 #define OLATA      (byte)0x14
 #define OLATB      (byte)0x15
+
+class Mcp : ExportStreamListener {
+private:
+    uint8_t _address;
+
+    long _nextPoll;
+    uint8_t _pollInterval;
+    uint8_t _portAOutputMask;
+    uint8_t _portBOutputMask;
+
+    uint8_t _portAInputState;
+    uint8_t _portBInputState;
+    uint8_t _portAOutputState;
+    uint8_t _portBOutputState;
+
+    void poll();
+    virtual void onDcsBiosFrameSync();
+
+public:
+    Mcp(uint8_t address, uint8_t portAOutputMask, uint8_t portBOutputMask, uint8_t pollInterval = 10);
+
+    void begin();
+    void setPinState(uint8_t pin, bool state);
+    uint8_t readPinState(uint8_t pin);
+};
 
 #endif
