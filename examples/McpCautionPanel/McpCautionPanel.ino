@@ -3,23 +3,40 @@
 #include <DcsBios.h>
 #include <DcsBiosMcp.h>
 
-/* MCP IO Expander
- * Address B0100000 - Default address if all address lines are tied to ground on MCP23017/MCP23018
+/*
+ * This is a partial example of implementing a caution panel with an
+ * MCP23018.  Be careful as an MCP23017 can not sink nearly as much 
+ * current.  Check your datasheets before implementing.
  */
+
 Mcp230xx expander(B0100000);
 
 /* Instantiate a device object to parse the DCS-BIOS export stream */
 DcsBiosSerialDevice dcsBiosDevice(Serial);
 
-/* Setup the CMSP Mode switch on pins 0, 1, 2, 3, 4 (Port A bits 0-4) */
-McpPin cmspModePins[5] = {
-    McpPin(expander, 0),
-    McpPin(expander, 1),
-    McpPin(expander, 2),
-    McpPin(expander, 3),
-    McpPin(expander, 4)
-};
-SwitchMultiPos cmspMode("CMSP_MODE", cmspModePins, 5);
+McpPin clA1pin(expander, 0);
+Led clA1(0x10d4, 0x0001, 0, clA1pin);
+
+McpPin clA2pin(expander, 1);
+Led clA2(0x10d4, 0x0002, 1, clA2pin);
+
+McpPin clA3pin(expander, 2);
+Led clA3(0x10d4, 0x0004, 2, clA3pin);
+
+McpPin clA4pin(expander, 3);
+Led clA4(0x10d4, 0x0008, 3, clA4pin);
+
+McpPin clA5pin(expander, 4);
+Led clA5(0x10d4, 0x0010, 4, clA5pin);
+
+McpPin clA6pin(expander, 5);
+Led clA6(0x10d4, 0x0020, 5, clA6pin);
+
+McpPin clA7pin(expander, 6);
+Led clA7(0x10d4, 0x0040, 6, clA7pin);
+
+McpPin clA8pin(expander, 7);
+Led clA8(0x10d4, 0x0080, 7, clA8pin);
 
 /*
  * Your setup routine needs to intialize your communications
@@ -35,9 +52,10 @@ void setup() {
     Wire.setClock(400000L);
 
     // Initialize MCP Expander
-    // * Port A - Setup to inputs, pullups on and no inversion
-    // * Port B - Setup to outputs, no inversion
-    expander.begin(0b0000000011111111, 0b0000000011111111, 0b0000000000000000);
+    // Since the LEDs are connected to an MCP on the ground side we invert
+    // the outputs.  This allows the MCP23018 to sink the current instead of
+    // supplying it.  This allows us to drive more current through the MCP23018.
+    expander.begin(0b0000000000000000, 0b0000000000000000, 0b1111111111111111);
     
     // Initialize all of your polling inputs.
     PollingInput::initInputs();

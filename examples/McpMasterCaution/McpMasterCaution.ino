@@ -3,14 +3,11 @@
 #include <DcsBios.h>
 #include <DcsBiosMcp.h>
 
-// MCP IO Expander
-// Address B0100000 - Default address if all address lines are tied to ground on MCP23017/MCP23018
-// Set all pins on PORTA to inputs
-// Set all pins on PORTB to outputs
-Mcp expander(B0100000, B00000000, B11111111);
+// MCP IO Expander on Address 0b0100001 with default polling interval
+Mcp230xx expander(0b0100001);
 
 /* Instantiate a device object to parse the DCS-BIOS export stream */
-DcsBiosSerialDevice dcsBiosDevice(Serial);
+DcsBiosRs485Device dcsBiosDevice(Serial, 8, 1);
 
 /* Declare a Master Caution Reset button on input pin 0 (Port A bit 0) of the Mcp23017 */
 McpPin ufcInputPin(expander, 0);
@@ -30,14 +27,17 @@ void setup() {
 
     // Initialize I2C bus
     Wire.begin();
-    // Set to highspeed clock
     Wire.setClock(400000L);
 
     // Initialize MCP Expander
-    expander.begin();
-
+    // * Port A - Setup to inputs, pullups on and no inversion
+    // * Port B - Setup to outputs, no inversion
+    expander.begin(0b0000000011111111, 0b0000000011111111, 0b0000000000000000);
+    
     // Initialize all of your polling inputs.
     PollingInput::initInputs();
+
+    ufcLedPin.set();
 }
 
 /**
