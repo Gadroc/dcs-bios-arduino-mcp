@@ -31,24 +31,20 @@ Mcp::Mcp(uint8_t address, uint8_t portAOutputMask, uint8_t portBOutputMask, uint
 void Mcp::begin()
 {
 
+    // Set pins to input/output mode
     Wire.beginTransmission(_address);
     Wire.write(IODIRA);
-    Wire.write((uint8_t)~_portAOutputMask);
-    Wire.write((uint8_t)~_portBOutputMask);
-    Wire.write((uint8_t)0xFF);
-    Wire.write((uint8_t)0xFF);
+    Wire.write((uint8_t)~_portAOutputMask); // IODIRA
+    Wire.write((uint8_t)~_portBOutputMask); // IODIRB
+    Wire.write((uint8_t)~_portAOutputMask); // IPOLA
+    Wire.write((uint8_t)~_portBOutputMask); // IPOLB
     Wire.endTransmission();
 
-    Wire.beginTransmission(_address);
-    Wire.write(GPIOA);
-    Wire.write((uint8_t)_portAOutputMask);
-    Wire.write((uint8_t)_portBOutputMask);
-    Wire.endTransmission();
-
+    // Turn on internal pull ups for input pins
     Wire.beginTransmission(_address);
     Wire.write(GPPUA);
-    Wire.write((uint8_t)~_portAOutputMask);
-    Wire.write((uint8_t)~_portBOutputMask);
+    Wire.write((uint8_t)~_portAOutputMask); // GPPUA
+    Wire.write((uint8_t)~_portBOutputMask); // GPPUB
     Wire.endTransmission();
 
     poll();
