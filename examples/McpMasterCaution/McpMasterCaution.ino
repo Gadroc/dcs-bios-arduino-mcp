@@ -32,6 +32,13 @@ void setup() {
     // Initialize the serial port to 250000 baud.
     Serial.begin(250000);
 
+    // Initialize I2C bus
+    Wire.begin();
+    TWBR = ((CPU_FREQ / TWI_FREQ) - 16) / 2;
+
+    // Initialize MCP Expander
+    expander.begin();
+
     // Initialize all of your polling inputs.
     PollingInput::initInputs();
 }
