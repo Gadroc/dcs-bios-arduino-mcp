@@ -5,7 +5,7 @@ project(${PROJECT_NAME})
 
 set(DcsBios_RECURSE True)
 set(DcsBiosMcp_RECURSE True)
-link_directories(/Users/ccourtne/Documents/Arduino/libraries)
+link_directories(..)
 
 set(McpMasterCaution_SKETCH examples/McpMasterCaution/McpMasterCaution.ino)
 generate_arduino_firmware(
@@ -15,4 +15,9 @@ generate_arduino_firmware(
 set(McpSwitchMultiPos_SKETCH examples/McpSwitchMultiPos/McpSwitchMultiPos.ino)
 generate_arduino_firmware(
         McpSwitchMultiPos
+)
+
+set(McpCautionPanel_SKETCH examples/McpCautionPanel/McpCautionPanel.ino)
+generate_arduino_firmware(
+        McpCautionPanel
 )
