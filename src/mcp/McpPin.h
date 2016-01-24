@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with DcsBios-Firmware.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef _DCSBIOS_MCPINPUTPIN_H_ 
+#ifndef _DCSBIOS_MCPINPUTPIN_H_
 #define _DCSBIOS_MCPINPUTPIN_H_
 
 #include <Arduino.h>
