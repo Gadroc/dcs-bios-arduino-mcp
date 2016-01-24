@@ -3,10 +3,6 @@
 #include <DcsBios.h>
 #include <DcsBiosMcp.h>
 
-// Setup for fast I2C
-#define CPU_FREQ 16000000L
-#define TWI_FREQ 400000L
-
 /* MCP IO Expander
  * Address B0100000 - Default address if all address lines are tied to ground on MCP23017/MCP23018
  * Set all pins on PORTA to inputs
@@ -37,7 +33,8 @@ void setup() {
 
     // Initialize I2C bus
     Wire.begin();
-    TWBR = ((CPU_FREQ / TWI_FREQ) - 16) / 2;
+    // Set to highspeed clock
+    Wire.setClock(400000L);
 
     // Initialize MCP Expander
     expander.begin();
