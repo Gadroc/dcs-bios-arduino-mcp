@@ -12,12 +12,12 @@ Mcp230xx expander(B0100000);
 DcsBiosSerialDevice dcsBiosDevice(Serial);
 
 /* Setup the CMSP Mode switch on pins 0, 1, 2, 3, 4 (Port A bits 0-4) */
-McpPin cmspModePins[5] = {
-    McpPin(expander, 0),
-    McpPin(expander, 1),
-    McpPin(expander, 2),
-    McpPin(expander, 3),
-    McpPin(expander, 4)
+InputPin** cmspModePins = new InputPin*[5] {
+    new McpPin(expander, 0),
+    new McpPin(expander, 1),
+    new McpPin(expander, 2),
+    new McpPin(expander, 3),
+    new McpPin(expander, 4)
 };
 SwitchMultiPos cmspMode("CMSP_MODE", cmspModePins, 5);
 
