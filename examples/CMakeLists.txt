@@ -1,0 +1,3 @@
+add_subdirectory(McpCautionPanel)
+add_subdirectory(McpMasterCaution)
+add_subdirectory(McpSwitchMultiPos)

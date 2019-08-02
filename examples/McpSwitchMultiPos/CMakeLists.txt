@@ -1,0 +1,4 @@
+add_arduino_executable(swith_multipos_example ${uno_board_id})
+target_sketches(swith_multipos_example ${uno_board_id} McpSwitchMultiPos.ino)
+target_link_libraries(swith_multipos_example PRIVATE dcsbios_uno_lib)
+target_link_libraries(swith_multipos_example PRIVATE dcsbios_mcp_uno_lib)

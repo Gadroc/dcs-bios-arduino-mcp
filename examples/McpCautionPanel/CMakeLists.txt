@@ -1,0 +1,4 @@
+add_arduino_executable(caution_panel_example ${uno_board_id})
+target_sketches(caution_panel_example ${uno_board_id} McpCautionPanel.ino)
+target_link_libraries(caution_panel_example PRIVATE dcsbios_uno_lib)
+target_link_libraries(caution_panel_example PRIVATE dcsbios_mcp_uno_lib)

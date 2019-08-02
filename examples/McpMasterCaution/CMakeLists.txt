@@ -1,0 +1,4 @@
+add_arduino_executable(master_caution_example ${uno_board_id})
+target_sketches(master_caution_example ${uno_board_id} McpMasterCaution.ino)
+target_link_libraries(master_caution_example PRIVATE dcsbios_uno_lib)
+target_link_libraries(master_caution_example PRIVATE dcsbios_mcp_uno_lib)
