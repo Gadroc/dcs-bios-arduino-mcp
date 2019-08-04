@@ -62,7 +62,7 @@ public:
 // to DCS bios as input pins.
 class Mcp230xx : public Mcp {
 private:
-    uint8_t _address;
+    const uint8_t _address;
 
     long _nextPoll;
     uint8_t _pollInterval;
@@ -73,14 +73,14 @@ private:
     Mcp230xxPort _portB;
 
     void poll();
-    virtual void onDcsBiosFrameSync();
+    void onDcsBiosFrameSync() override;
 
 public:
-    Mcp230xx(uint8_t address, uint8_t pollInterval = 10);
+    explicit Mcp230xx(uint8_t address, uint8_t pollInterval = 10);
 
     void begin(uint16_t ioDir, uint16_t pullUps = 0x0000, uint16_t polarityInvert = 0x0000);
-    virtual void setPinState(uint8_t pin, bool state);
-    virtual uint8_t readPinState(uint8_t pin);
+    void setPinState(uint8_t pin, bool state) override;
+    uint8_t readPinState(uint8_t pin) override;
 };
 
 #endif

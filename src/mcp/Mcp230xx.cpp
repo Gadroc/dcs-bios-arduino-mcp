@@ -30,7 +30,7 @@ uint8_t Mcp230xxPort::readPinState(uint8_t pin) {
     // through IPOLA/IPOLB register in begin().
     uint8_t pinMask = 1 << pin;
     return state & pinMask ? HIGH : LOW;
-};
+}
 
 void Mcp230xxPort::setPinState(uint8_t pin, bool pinState) {
     uint8_t pinMask = 1 << pin;
@@ -52,13 +52,12 @@ void Mcp230xxPort::setPinState(uint8_t pin, bool pinState) {
     }
 
     changed = true;
-};
+}
 
-Mcp230xx::Mcp230xx(uint8_t address, uint8_t pollInterval)
+Mcp230xx::Mcp230xx(uint8_t address, uint8_t pollInterval) : _address(address)
 {
     // Trigger pollin on next read
     _nextPoll = millis()-1;
-    _address = address;
     _pollInterval = pollInterval;
 }
 

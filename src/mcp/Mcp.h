@@ -24,11 +24,11 @@
 
 class Mcp : ExportStreamListener {
 private:
-    virtual void onDcsBiosFrameSync();
-    
+    void onDcsBiosFrameSync() override = 0;
+
 public:
-    virtual void setPinState(uint8_t pin, bool state);
-    virtual uint8_t readPinState(uint8_t pin);    
+    virtual void setPinState(uint8_t pin, bool state) = 0;
+    virtual uint8_t readPinState(uint8_t pin) = 0;
 };
 
 #endif

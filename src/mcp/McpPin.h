@@ -27,25 +27,16 @@
 class McpPin : public InputPin, public OutputPin {
 
 private:
-    Mcp& _mcp;
-    uint8_t _pin;
+          Mcp&    _mcp;
+    const uint8_t _pin;
 
 public:
-    McpPin(Mcp& mcp, uint8_t pin) : _mcp(mcp) {
-        _pin = pin;
-    }
+    McpPin(Mcp& mcp, uint8_t pin) : _mcp(mcp), _pin(pin) {}
 
-    virtual uint8_t readState() {
-        return _mcp.readPinState(_pin);
-    }
-
-    virtual void set() {
-        _mcp.setPinState(_pin, true);
-    }
-
-    virtual void clear() {
-        _mcp.setPinState(_pin, false);
-    }
+    bool isValid() override {  return true; }
+    uint8_t readState() override { return _mcp.readPinState(_pin); }
+    void set() override { _mcp.setPinState(_pin, true); }
+    void clear() override { _mcp.setPinState(_pin, false); }
 };
 
 #endif
